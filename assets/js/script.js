@@ -54,7 +54,7 @@ function startQuiz(event){
 
 // remove question from the DOM
 function clearQuestions(){
-   var element = questionListEl.firstChild;
+   var element = questionListEl.children[0];
    console.log(element);
    element.remove();
 }
@@ -63,9 +63,13 @@ function clearQuestions(){
 function renderedNewQuestion() {
 
     //clear the previous question if the quiz has started
-    //clearQuestions();
+    if(index > 0){
+        clearQuestions();
+    }
+    
 
-    if(index == questions.length){
+    //check if is the last question and end the Quiz
+    if(index === questions.length){
         return;
     }
 
@@ -90,6 +94,7 @@ function renderedNewQuestion() {
     newOpt_c.textContent = `C: ${questions[index].c}`;
     newOpt_d.textContent = `D: ${questions[index].d}`;
 
+    //add new index to generate a new question next time
     index ++;
     console.log(index);
 
