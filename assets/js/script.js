@@ -1,10 +1,15 @@
 //storing the HTML elements in javascript
 var questionListEl = document.querySelector("#questionList");
 var startBtn = document.querySelector("#start");
+var timerEl = document.querySelector("#timer")
 
 var index = 0;
+var timer = 45;
 
-// create an array of object where I store all the static text - make it easier in the future to add more questions
+//answer to the quiz
+var answers = ["c","a","b","a","c"];
+
+// Array of object to store all the static text
 var questions = [{
         questionText: "how many players from one team are allow to play inside the field?",
         a: "22",
@@ -43,32 +48,40 @@ var questions = [{
 ]
 
 
-
 function startQuiz(event){
     event.preventDefault();
     console.log("lets go!");
 
     renderedNewQuestion();
     hideStartbn();
+    startTimer();
+}
+
+function startTimer(){
+    timerEl.textContent = timer;
 }
 
 // remove question from the DOM
-function clearQuestions(){
+function clearQuestion(){
    var element = questionListEl.children[0];
    console.log(element);
    element.remove();
 }
 
 //render questions
-function renderedNewQuestion() {
+function renderedNewQuestion(event) {
 
-    //clear the previous question if the quiz has started
-    if(index > 0){
-        clearQuestions();
-    }
     
 
-    //check if is the last question and end the Quiz
+    //check if the quiz has started
+    if(index > 0){
+        clearQuestion();
+        //check which option the user selected
+        var userChoiceEl = event.target;
+        var userChoice = userChoiceEl.getAttribute("class");
+    }
+    
+    //check if is that was the last question and end the Quiz
     if(index === questions.length){
         return;
     }
@@ -82,9 +95,13 @@ function renderedNewQuestion() {
     newQuestion.append(newQuestionTitle,newQuestionOptionsList);
 
     var newOpt_a = document.createElement("li");
+    newOpt_a.setAttribute("class","a");
     var newOpt_b = document.createElement("li");
+    newOpt_b.setAttribute("class","b");
     var newOpt_c = document.createElement("li");
+    newOpt_c.setAttribute("class","c");
     var newOpt_d = document.createElement("li");
+    newOpt_d.setAttribute("class","d");
     newQuestionOptionsList.append(newOpt_a,newOpt_b,newOpt_c,newOpt_d);
 
     //store the value of our array into the HTML elements
@@ -98,6 +115,8 @@ function renderedNewQuestion() {
     index ++;
     console.log(index);
 
+    questionListEl.addEventListener("click", renderedNewQuestion);
+
 }
 
 //hide start button after quiz had began
@@ -108,4 +127,5 @@ startBtn.setAttribute("style","display: none");
 // **** Event Listeners ****
 //start quiz
 startBtn.addEventListener("click",startQuiz);
-questionListEl.addEventListener("click", renderedNewQuestion);
+
+
