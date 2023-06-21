@@ -1,7 +1,11 @@
 //storing the HTML elements in javascript
 var questionListEl = document.querySelector("#questionList");
+var inputTextEl = document.querySelector('#initials');
+var submitBtn = document.querySelector('#submit');
+var scoreMsgEl = document.querySelector("#scoreMsg");
 var startBtn = document.querySelector("#start");
 var timerEl = document.querySelector("#timer")
+var formEl = document.querySelector("#initialsForm")
 
 var index = 0;
 var timer = 45;
@@ -66,12 +70,28 @@ function renderTimer(){
 
         if(timer === 0){
             clearInterval(countdown);
+            submitScore();
+            if(index < questions.length){
+                clearQuestion();
+            }
         } else {
             timer--;
             timerEl.textContent = timer;
         }
         }, 1000);
         
+}
+
+function LocalStoreInitials(){
+
+}
+
+function submitScore(){
+formEl.setAttribute("class","show");
+scoreMsgEl.textContent = `Your score is ${timer}`;
+
+submitBtn.addEventListener("click",LocalStoreInitials);
+
 }
 
 // remove question from the DOM
