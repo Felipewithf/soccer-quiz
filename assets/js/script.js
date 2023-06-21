@@ -6,44 +6,46 @@ var timerEl = document.querySelector("#timer")
 var index = 0;
 var timer = 45;
 
-//answer to the quiz
-var answers = ["c","a","b","a","c"];
-
 // Array of object to store all the static text
 var questions = [{
         questionText: "how many players from one team are allow to play inside the field?",
         a: "22",
         b: "18",
         c: "11",
-        d: "9"
+        d: "9",
+        answer: "c",
     },
     {
         questionText: "What is a soccer field called??",
         a: "Pitch",
         b: "Box",
         c: "Court",
-        d: "Paddock"
+        d: "Paddock",
+        answer: "a",
     },
     {
         questionText: "How long does a soccer game last?",
         a: "45 minutes",
         b: "90 minutes",
         c: "120 minutes",
-        d: "60 minutes"
+        d: "60 minutes",
+        answer: "b",
     },
     {
         questionText: "Who can add time in a soccer game?",
         a: "Referee",
         b: "Coach",
         c: "Team Captain",
-        d: "Stadium Officer"
+        d: "Stadium Officer",
+        answer: "a",
     },
     {
         questionText: "Which country won the most FIFA World Cup titles?",
         a: "Germany",
         b: "England",
         c: "Brazil",
-        d: "Argentina"
+        d: "Argentina",
+        answer: "c",
     }
 ]
 
@@ -52,13 +54,26 @@ function startQuiz(event){
     event.preventDefault();
     console.log("lets go!");
 
-    renderedNewQuestion();
     hideStartbn();
-    startTimer();
+    renderTimer();
+    renderedQuestion();
+
 }
 
-function startTimer(){
+function renderTimer(){
     timerEl.textContent = timer;
+
+    var countdown = setInterval(()=>{
+
+        if(timer > 0){
+            timer--;
+            timerEl.textContent = timer;
+        } else {
+            clearInterval(countdown);
+            clearQuestion();
+        }
+        
+        }, 1000);
 }
 
 // remove question from the DOM
@@ -69,18 +84,8 @@ function clearQuestion(){
 }
 
 //render questions
-function renderedNewQuestion(event) {
+function renderedQuestion(event) {
 
-    
-
-    //check if the quiz has started
-    if(index > 0){
-        clearQuestion();
-        //check which option the user selected
-        var userChoiceEl = event.target;
-        var userChoice = userChoiceEl.getAttribute("class");
-    }
-    
     //check if is that was the last question and end the Quiz
     if(index === questions.length){
         return;
@@ -111,12 +116,6 @@ function renderedNewQuestion(event) {
     newOpt_c.textContent = `C: ${questions[index].c}`;
     newOpt_d.textContent = `D: ${questions[index].d}`;
 
-    //add new index to generate a new question next time
-    index ++;
-    console.log(index);
-
-    questionListEl.addEventListener("click", renderedNewQuestion);
-
 }
 
 //hide start button after quiz had began
@@ -124,8 +123,35 @@ function hideStartbn (){
 startBtn.setAttribute("style","display: none");
 }
 
+function checkSolution(event){
+
+    //check which option the user selected
+    var userChoiceEl = event.target;
+    var userChoice = userChoiceEl.getAttribute("class");
+    console.log(userChoice);
+
+    //check if the answer is correct
+    if(userChoice === questions[index].answer){
+        console.log("correct the answer is: " + questions[index].answer)
+        timer++;
+        renderTimer();
+    } else {
+            console.log ("incorrect");
+    }
+
+    //add new index to generate a new question next time
+    console.log(index);
+    index ++;
+
+    clearQuestion();
+    renderedQuestion();
+
+}
+
 // **** Event Listeners ****
 //start quiz
 startBtn.addEventListener("click",startQuiz);
+
+questionListEl.addEventListener("click", checkSolution);
 
 
