@@ -52,7 +52,6 @@ var questions = [{
 
 function startQuiz(event){
     event.preventDefault();
-    console.log("lets go!");
 
     hideStartbn();
     renderTimer();
@@ -65,21 +64,19 @@ function renderTimer(){
 
     var countdown = setInterval(()=>{
 
-        if(timer > 0){
+        if(timer === 0){
+            clearInterval(countdown);
+        } else {
             timer--;
             timerEl.textContent = timer;
-        } else {
-            clearInterval(countdown);
-            clearQuestion();
         }
-        
         }, 1000);
+        
 }
 
 // remove question from the DOM
 function clearQuestion(){
    var element = questionListEl.children[0];
-   console.log(element);
    element.remove();
 }
 
@@ -88,7 +85,9 @@ function renderedQuestion(event) {
 
     //check if is that was the last question and end the Quiz
     if(index === questions.length){
+        timer = 0;
         return;
+        
     }
 
     //create elements and append them to each other
@@ -123,6 +122,11 @@ function hideStartbn (){
 startBtn.setAttribute("style","display: none");
 }
 
+//Show start button after quiz had began
+function showStartbn (){
+    startBtn.setAttribute("style","display: block");
+    }
+
 function checkSolution(event){
 
     //check which option the user selected
@@ -133,10 +137,13 @@ function checkSolution(event){
     //check if the answer is correct
     if(userChoice === questions[index].answer){
         console.log("correct the answer is: " + questions[index].answer)
-        timer++;
-        renderTimer();
+        timer = timer + 10;
+        timerEl.textContent = timer;
     } else {
             console.log ("incorrect");
+            timer = timer - 10;
+            timerEl.textContent = timer;
+
     }
 
     //add new index to generate a new question next time
