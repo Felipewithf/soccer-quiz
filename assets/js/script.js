@@ -2,6 +2,8 @@
 var questionListEl = document.querySelector("#questionList");
 var startBtn = document.querySelector("#start");
 
+var index = 0;
+
 // create an array of object where I store all the static text - make it easier in the future to add more questions
 var questions = [{
         questionText: "how many players from one team are allow to play inside the field?",
@@ -11,32 +13,32 @@ var questions = [{
         d: "9"
     },
     {
-        questionText: "how many players from one team are allow to play inside the field?",
-        a: "22",
-        b: "18",
-        c: "11",
-        d: "9"
+        questionText: "What is a soccer field called??",
+        a: "Pitch",
+        b: "Box",
+        c: "Court",
+        d: "Paddock"
     },
     {
-        questionText: "how many players from one team are allow to play inside the field?",
-        a: "22",
-        b: "18",
-        c: "11",
-        d: "9"
+        questionText: "How long does a soccer game last?",
+        a: "45 minutes",
+        b: "90 minutes",
+        c: "120 minutes",
+        d: "60 minutes"
     },
     {
-        questionText: "how many players from one team are allow to play inside the field?",
-        a: "22",
-        b: "18",
-        c: "11",
-        d: "9"
+        questionText: "Who can add time in a soccer game?",
+        a: "Referee",
+        b: "Coach",
+        c: "Team Captain",
+        d: "Stadium Officer"
     },
     {
-        questionText: "how many players from one team are allow to play inside the field?",
-        a: "22",
-        b: "18",
-        c: "11",
-        d: "9"
+        questionText: "Which country won the most FIFA World Cup titles?",
+        a: "Germany",
+        b: "England",
+        c: "Brazil",
+        d: "Argentina"
     }
 ]
 
@@ -47,34 +49,49 @@ function startQuiz(event){
     console.log("lets go!");
 
     renderedNewQuestion();
+    hideStartbn();
+}
 
-hideStartbn();
+// remove question from the DOM
+function clearQuestions(){
+   var element = questionListEl.firstChild;
+   console.log(element);
+   element.remove();
 }
 
 //render questions
 function renderedNewQuestion() {
 
-//create elements and append them to each other
-var newQuestion = document.createElement("li");
-questionListEl.append(newQuestion);
+    //clear the previous question if the quiz has started
+    //clearQuestions();
 
-var newQuestionTitle = document.createElement("h3");
-var newQuestionOptionsList = document.createElement("ul");
-newQuestion.append(newQuestionTitle,newQuestionOptionsList);
+    if(index == questions.length){
+        return;
+    }
 
-var newOpt_a = document.createElement("li");
-var newOpt_b = document.createElement("li");
-var newOpt_c = document.createElement("li");
-var newOpt_d = document.createElement("li");
-newQuestionOptionsList.append(newOpt_a,newOpt_b,newOpt_c,newOpt_d);
+    //create elements and append them to each other
+    var newQuestion = document.createElement("li");
+    questionListEl.append(newQuestion);
 
+    var newQuestionTitle = document.createElement("h3");
+    var newQuestionOptionsList = document.createElement("ul");
+    newQuestion.append(newQuestionTitle,newQuestionOptionsList);
 
-//store the value of our array into the HTML elements
-newQuestionTitle.textContent = questions[0].questionText;
-newOpt_a.textContent = `A: ${questions[0].a}`;
-newOpt_b.textContent = `B: ${questions[0].b}`;
-newOpt_c.textContent = `C: ${questions[0].c}`;
-newOpt_d.textContent = `D: ${questions[0].d}`;
+    var newOpt_a = document.createElement("li");
+    var newOpt_b = document.createElement("li");
+    var newOpt_c = document.createElement("li");
+    var newOpt_d = document.createElement("li");
+    newQuestionOptionsList.append(newOpt_a,newOpt_b,newOpt_c,newOpt_d);
+
+    //store the value of our array into the HTML elements
+    newQuestionTitle.textContent = questions[index].questionText;
+    newOpt_a.textContent = `A: ${questions[index].a}`;
+    newOpt_b.textContent = `B: ${questions[index].b}`;
+    newOpt_c.textContent = `C: ${questions[index].c}`;
+    newOpt_d.textContent = `D: ${questions[index].d}`;
+
+    index ++;
+    console.log(index);
 
 }
 
