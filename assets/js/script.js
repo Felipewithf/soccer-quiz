@@ -6,7 +6,6 @@ var scoreMsgEl = document.querySelector("#scoreMsg");
 var timerEl = document.querySelector("#timer")
 var formEl = document.querySelector("#initialsForm")
 var highscoreformEl = document.querySelector("#highscoreForm")
-
 var submitBtn = document.querySelector('#submit');
 var startBtn = document.querySelector("#start");
 var clearBtn = document.querySelector("#clear");
@@ -14,8 +13,8 @@ var backBtn = document.querySelector("#back");
 var viewHighScoreBtn = document.querySelector("#viewHighScore");
 
 
-var index = 0;
-var timer = 45;
+var index = 0; //questions
+var timer = 45; //countdown
 
 // Array of object to store all the static text
 var questions = [{
@@ -209,7 +208,7 @@ function checkForHighScore(score,playerInitials){
     var highscore = localStorage.getItem("highScore");
 
     if(highscore === null || highscore < score ){
-        //there is no highscore, set new score as highscore
+        //set new score as highscore
         localStorage.setItem("highScore",score);
         localStorage.setItem("bestPlayer",playerInitials);
     }
@@ -218,7 +217,7 @@ function checkForHighScore(score,playerInitials){
 
 function renderScore(score,player){
 
-    //render scores in HTML
+    //render score and player depending of who calls the function
     var newScoreEl = document.createElement("li");
     highscoreListEl.append(newScoreEl);
     newScoreEl.textContent = ` ${localStorage.getItem(player)}  ====  ${localStorage.getItem(score)}`;
@@ -261,11 +260,10 @@ function viewScores(){
 }
 
 // **** Event Listeners ****
-
 //start quiz
 startBtn.addEventListener("click",startQuiz);
 
-//sees user choice per question
+//listens user choice per question
 questionListEl.addEventListener("click", checkSolution);
 
 //stores initials into localstorage
@@ -277,5 +275,5 @@ clearBtn.addEventListener("click",clearScores);
 //go back and start the game again
 backBtn.addEventListener("click", backToQuiz);
 
-//Show the Highscore
+//Show the Scores
 viewHighScoreBtn.addEventListener("click", viewScores);
