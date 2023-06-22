@@ -2,11 +2,17 @@
 var questionListEl = document.querySelector("#questionList");
 var highscoreListEl = document.querySelector('#highscoreList');
 var inputTextEl = document.querySelector('#initials');
-var submitBtn = document.querySelector('#submit');
 var scoreMsgEl = document.querySelector("#scoreMsg");
-var startBtn = document.querySelector("#start");
 var timerEl = document.querySelector("#timer")
 var formEl = document.querySelector("#initialsForm")
+var highscoreformEl = document.querySelector("#highscoreForm")
+
+var submitBtn = document.querySelector('#submit');
+var startBtn = document.querySelector("#start");
+var clearBtn = document.querySelector("#clear");
+var backBtn = document.querySelector("#back");
+var viewHighScoreBtn = document.querySelector("#viewHighScore");
+
 
 var index = 0;
 var timer = 45;
@@ -73,6 +79,7 @@ function showStartbn (){
         startBtn.setAttribute("style","display: block");
 }
 
+//render timer and calls endOfQuiz
 function renderTimer(){
     timerEl.textContent = timer;
 
@@ -93,7 +100,7 @@ function renderTimer(){
 }
 
 //render questions
-function renderedQuestion(event) {
+function renderedQuestion() {
 
     //create elements and append them to each other
     var newQuestion = document.createElement("li");
@@ -140,8 +147,7 @@ function checkSolution(event){
             timerEl.textContent = timer;
             if (timer <= 0){
                 return timer;
-            }
-            
+            }     
     }
 
     //add new index to generate a new question next time
@@ -155,8 +161,6 @@ function checkSolution(event){
         clearQuestion();
         renderedQuestion();
     }
-
-    
 
 }
 
@@ -175,7 +179,7 @@ function endOfQuiz(){
 
     formEl.setAttribute("class","show");
     scoreMsgEl.textContent = `Your score is ${timer}`;
-    submitBtn.addEventListener("click",LocalStoreInitials);
+    
 
 }
 
@@ -193,19 +197,56 @@ function LocalStoreInitials(event){
 
 }
 
+
 function renderHighscore(event){
 
-    //create and render highscores in HTML
+    //creates highscores in HTML
     var newHighscore = document.createElement("li");
-
-    newHighscore.textContent = ` ${localStorage.getItem("initials")}  ====  ${localStorage.getItem("score")}`;
     highscoreListEl.append(newHighscore);
+    newHighscore.textContent = ` ${localStorage.getItem("initials")}  ====  ${localStorage.getItem("score")}`;
+
+    highscoreformEl.setAttribute("class","show");
 
 }
 
+function clearScores(){
+    localStorage.clear();
+    
+}
+
+function backToQuiz(){
+    index = 0;
+    timer = 45;
+    showStartbn();
+    highscoreformEl.setAttribute("class","hide");
+
+}
+
+function viewScores(){
+
+    if(highscoreListEl.children.length === 0){
+        renderHighscore();
+    }else{
+    highscoreformEl.setAttribute("class","show");
+    };
+}
 
 // **** Event Listeners ****
+
 //start quiz
 startBtn.addEventListener("click",startQuiz);
 
+//sees user choice per question
 questionListEl.addEventListener("click", checkSolution);
+
+//stores initials into localstorage
+submitBtn.addEventListener("click",LocalStoreInitials);
+
+//clear scores from localstorage
+clearBtn.addEventListener("click",clearScores);
+
+//go back and start the game again
+backBtn.addEventListener("click", backToQuiz);
+
+//Show the Highscore
+viewHighScoreBtn.addEventListener("click", viewScores);
