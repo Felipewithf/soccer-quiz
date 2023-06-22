@@ -8,39 +8,48 @@
 </head>
 <body>
     <header>
-        <h1>Soccer Quiz</h1>
-        <button id="start">start</button>
-        <button id="viewHighScore">View Highscore</button>
-        <h2 id="timer"></h2>
+        <h3 id="viewHighScore">View Highscores</h3>
+        <h3>Emoji</h3>
+        <h3><span id="timer"></span>: Timer</h3>
     </header>
+    <aside id="highscoreForm" class="hide">
+        <h2>Highscores</h2>
+        <ul id="highscoreList">
+        </ul>
+        <button type="submit" id="back">Go Back </button>
+        <button id="clear">Clear Highscores</button>
+        
+    </aside>
     <main>
-        <aside id="highscoreForm" class="hide">
-            <h2>Highscores</h2>
-            <ul id="highscoreList">
-            </ul>
-            <button type="submit" id="back">Go Back </button>
-            <button id="clear">Clear Highscores</button>
+        <h1>Soccer Quiz</h1>
+        <h4>subtitle</h4>
+        <div class="dynamic-box">
+            <div id="startBtnHolder">
+                <button id="start">start</button>
+            </div>
+
             
-        </aside>
-        <form id="initialsForm" class="hide">
-            <p id='scoreMsg'></p>
-            <label for="initials" >Enter initials </label>
-            <input type="text" name="initials" id="initials" placeholder="AA">
-            <button id="submit">Submit</button>
-        </form>
-        <div class="questionContainer">
-            <ul id="questionList">
-                <!-- <li><h3>Static Question</h3>
-                    <ul>
-                        <li> A: possible answer</li>
-                        <li> B: possible answer</li>
-                        <li> C: possible answer</li>
-                        <li> D: possible answer</li>
-                    </ul>
-                </li> -->
-            </ul>
+            <form id="initialsForm" class="hide">
+                <p id='scoreMsg'></p>
+                <label for="initials" >Enter initials </label>
+                <input type="text" name="initials" id="initials" placeholder="AA">
+                <button id="submit">Submit</button>
+            </form>
+            <div class="questionContainer">
+                <ul id="questionList">
+                    <!-- <li><h3>Static Question</h3>
+                        <ul>
+                            <li> A: possible answer</li>
+                            <li> B: possible answer</li>
+                            <li> C: possible answer</li>
+                            <li> D: possible answer</li>
+                        </ul>
+                    </li> -->
+                </ul>
+            </div>
         </div>
     </main>
+    <footer>Felipewithf coding portfolio</footer>
     
     <script src="assets/js/script.js"></script>
 </body>

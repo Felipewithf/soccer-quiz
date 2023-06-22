@@ -5,3 +5,39 @@
 .show{
     display: block;
 }
+
+header{
+    height: 10vh;
+    display: flex;
+    justify-content: space-between;
+    margin: 0 10px;
+}
+
+main{
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+}
+
+.dynamic-box{
+    background-color: antiquewhite;
+    height: fit-content;
+    min-height: 60%;
+    width: 50vw;
+}
+
+#startBtnHolder{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+}
+
+footer{
+    height: 10vh;
+    display: flex;
+    justify-content: center;
+}

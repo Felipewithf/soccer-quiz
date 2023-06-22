@@ -7,7 +7,7 @@ var timerEl = document.querySelector("#timer")
 var formEl = document.querySelector("#initialsForm")
 var highscoreformEl = document.querySelector("#highscoreForm")
 var submitBtn = document.querySelector('#submit');
-var startBtn = document.querySelector("#start");
+var startBtn = document.querySelector("#startBtnHolder");
 var clearBtn = document.querySelector("#clear");
 var backBtn = document.querySelector("#back");
 var viewHighScoreBtn = document.querySelector("#viewHighScore");
@@ -75,7 +75,7 @@ function hideStartbn (){
     
 //Show start button after quiz had began
 function showStartbn (){
-        startBtn.setAttribute("style","display: block");
+        startBtn.setAttribute("style","display: flex");
 }
 
 //render timer and calls endOfQuiz
