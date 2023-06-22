@@ -200,7 +200,7 @@ function storeScoresLocally(event){
     formEl.setAttribute("class","hide");
 
     //render Highscore
-    renderScore();
+    renderScore("lastScore","lastPlayer");
 
 }
 
@@ -210,17 +210,18 @@ function checkForHighScore(score,playerInitials){
 
     if(highscore === null || highscore < score ){
         //there is no highscore, set new score as highscore
-        localStorage.setItem("highScore",score)
+        localStorage.setItem("highScore",score);
+        localStorage.setItem("bestPlayer",playerInitials);
     }
 
 }
 
-function renderScore(event){
+function renderScore(score,player){
 
-    //creates highscores in HTML
-    var newHighscore = document.createElement("li");
-    highscoreListEl.append(newHighscore);
-    newHighscore.textContent = ` ${localStorage.getItem("lastPlayer")}  ====  ${localStorage.getItem("lastScore")}`;
+    //render scores in HTML
+    var newScoreEl = document.createElement("li");
+    highscoreListEl.append(newScoreEl);
+    newScoreEl.textContent = ` ${localStorage.getItem(player)}  ====  ${localStorage.getItem(score)}`;
 
     highscoreformEl.setAttribute("class","show");
 
@@ -242,7 +243,7 @@ function backToQuiz(){
 function viewScores(){
 
     if(highscoreListEl.children.length === 0){
-        renderScore();
+        renderScore("highScore","bestPlayer");
     }else{
     highscoreformEl.setAttribute("class","show");
     };
