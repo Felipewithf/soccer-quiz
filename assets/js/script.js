@@ -54,7 +54,6 @@ var questions = [{
     }
 ]
 
-
 function startQuiz(event){
     event.preventDefault();
 
@@ -79,7 +78,7 @@ function renderTimer(){
 
     var countdown = setInterval(()=>{
 
-        if(timer <= 0){ 
+        if(timer <= 0 || index === questions.length){ 
                       
             clearInterval(countdown);
             endOfQuiz();
@@ -93,16 +92,8 @@ function renderTimer(){
         
 }
 
-
 //render questions
 function renderedQuestion(event) {
-
-    //check if is that was the last question and end the Quiz
-    if(index === questions.length){
-        timer = 0;
-        return index;
-        
-    }
 
     //create elements and append them to each other
     var newQuestion = document.createElement("li");
@@ -157,8 +148,15 @@ function checkSolution(event){
     console.log(index);
     index ++;
 
-    clearQuestion();
-    renderedQuestion();
+    //check if is that was the last question and end the Quiz
+    if(index === questions.length){
+        return index;
+    } else{
+        clearQuestion();
+        renderedQuestion();
+    }
+
+    
 
 }
 
@@ -197,14 +195,11 @@ function LocalStoreInitials(event){
 
 function renderHighscore(event){
 
-    //create and render in highscore in HTML
+    //create and render highscores in HTML
     var newHighscore = document.createElement("li");
 
-    var getScore
-    var getName
-    newHighscore.textContent = ` ${localStorage.getItem("initials")}  -  ${localStorage.getItem("score")}`;
+    newHighscore.textContent = ` ${localStorage.getItem("initials")}  ====  ${localStorage.getItem("score")}`;
     highscoreListEl.append(newHighscore);
-
 
 }
 
