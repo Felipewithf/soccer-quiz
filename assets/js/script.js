@@ -1,5 +1,6 @@
 //storing the HTML elements in javascript
 var questionListEl = document.querySelector("#questionList");
+var highscoreListEl = document.querySelector('#highscoreList');
 var inputTextEl = document.querySelector('#initials');
 var submitBtn = document.querySelector('#submit');
 var scoreMsgEl = document.querySelector("#scoreMsg");
@@ -63,17 +64,27 @@ function startQuiz(event){
 
 }
 
+//hide start button after quiz had began
+function hideStartbn (){
+    startBtn.setAttribute("style","display: none");
+}
+    
+//Show start button after quiz had began
+function showStartbn (){
+        startBtn.setAttribute("style","display: block");
+}
+
 function renderTimer(){
     timerEl.textContent = timer;
 
     var countdown = setInterval(()=>{
 
-        if(timer === 0){
+        if(timer <= 0){ 
+                      
             clearInterval(countdown);
-            submitScore();
-            if(index < questions.length){
-                clearQuestion();
-            }
+            endOfQuiz();
+            return timer;
+
         } else {
             timer--;
             timerEl.textContent = timer;
@@ -82,25 +93,6 @@ function renderTimer(){
         
 }
 
-function LocalStoreInitials(event){
-    
-    localStorage.setItem("initials", inputTextEl.value);
-    localStorage.setItem("score",timer);
-
-}
-
-function submitScore(){
-formEl.setAttribute("class","show");
-scoreMsgEl.textContent = `Your score is ${timer}`;
-submitBtn.addEventListener("click",LocalStoreInitials);
-
-}
-
-// remove question from the DOM
-function clearQuestion(){
-   var element = questionListEl.children[0];
-   element.remove();
-}
 
 //render questions
 function renderedQuestion(event) {
@@ -108,7 +100,7 @@ function renderedQuestion(event) {
     //check if is that was the last question and end the Quiz
     if(index === questions.length){
         timer = 0;
-        return;
+        return index;
         
     }
 
@@ -139,16 +131,6 @@ function renderedQuestion(event) {
 
 }
 
-//hide start button after quiz had began
-function hideStartbn (){
-startBtn.setAttribute("style","display: none");
-}
-
-//Show start button after quiz had began
-function showStartbn (){
-    startBtn.setAttribute("style","display: block");
-    }
-
 function checkSolution(event){
 
     //check which option the user selected
@@ -165,7 +147,10 @@ function checkSolution(event){
             console.log ("incorrect");
             timer = timer - 10;
             timerEl.textContent = timer;
-
+            if (timer <= 0){
+                return timer;
+            }
+            
     }
 
     //add new index to generate a new question next time
@@ -177,10 +162,55 @@ function checkSolution(event){
 
 }
 
+function clearQuestion(){
+    var element = questionListEl.children[0];
+    
+    element.remove();
+
+}
+
+function endOfQuiz(){
+
+    if(index <= questions.length){
+    clearQuestion();
+    }
+
+    formEl.setAttribute("class","show");
+    scoreMsgEl.textContent = `Your score is ${timer}`;
+    submitBtn.addEventListener("click",LocalStoreInitials);
+
+}
+
+function LocalStoreInitials(event){
+
+    event.preventDefault();
+    
+    //store the high score in localstorage
+    localStorage.setItem("initials", (inputTextEl.value).toUpperCase() );
+    localStorage.setItem("score",timer);
+
+    formEl.setAttribute("class","hide");
+
+    renderHighscore();
+
+}
+
+function renderHighscore(event){
+
+    //create and render in highscore in HTML
+    var newHighscore = document.createElement("li");
+
+    var getScore
+    var getName
+    newHighscore.textContent = ` ${localStorage.getItem("initials")}  -  ${localStorage.getItem("score")}`;
+    highscoreListEl.append(newHighscore);
+
+
+}
+
+
 // **** Event Listeners ****
 //start quiz
 startBtn.addEventListener("click",startQuiz);
 
 questionListEl.addEventListener("click", checkSolution);
-
-
