@@ -183,27 +183,44 @@ function endOfQuiz(){
 
 }
 
-function LocalStoreInitials(event){
+function storeScoresLocally(event){
 
     event.preventDefault();
-    
-    //store the high score in localstorage
-    localStorage.setItem("initials", (inputTextEl.value).toUpperCase() );
-    localStorage.setItem("score",timer);
 
+    var score = timer;
+    var playerInitials = (inputTextEl.value).toUpperCase();
+
+    checkForHighScore(score,playerInitials);
+    
+    //store the score in localstorage
+    localStorage.setItem("lastPlayer", playerInitials);
+    localStorage.setItem("lastScore",score);
+
+    //hide the form
     formEl.setAttribute("class","hide");
 
-    renderHighscore();
+    //render Highscore
+    renderScore();
 
 }
 
+function checkForHighScore(score,playerInitials){
 
-function renderHighscore(event){
+    var highscore = localStorage.getItem("highScore");
+
+    if(highscore === null || highscore < score ){
+        //there is no highscore, set new score as highscore
+        localStorage.setItem("highScore",score)
+    }
+
+}
+
+function renderScore(event){
 
     //creates highscores in HTML
     var newHighscore = document.createElement("li");
     highscoreListEl.append(newHighscore);
-    newHighscore.textContent = ` ${localStorage.getItem("initials")}  ====  ${localStorage.getItem("score")}`;
+    newHighscore.textContent = ` ${localStorage.getItem("lastPlayer")}  ====  ${localStorage.getItem("lastScore")}`;
 
     highscoreformEl.setAttribute("class","show");
 
@@ -225,7 +242,7 @@ function backToQuiz(){
 function viewScores(){
 
     if(highscoreListEl.children.length === 0){
-        renderHighscore();
+        renderScore();
     }else{
     highscoreformEl.setAttribute("class","show");
     };
@@ -240,7 +257,7 @@ startBtn.addEventListener("click",startQuiz);
 questionListEl.addEventListener("click", checkSolution);
 
 //stores initials into localstorage
-submitBtn.addEventListener("click",LocalStoreInitials);
+submitBtn.addEventListener("click",storeScoresLocally);
 
 //clear scores from localstorage
 clearBtn.addEventListener("click",clearScores);
