@@ -229,6 +229,14 @@ function renderScore(score,player){
 
 function clearScores(){
     localStorage.clear();
+
+    if(highscoreListEl.children.length != 0){
+        for (let i = highscoreListEl.children.length; i > 0; i--) {
+            highscoreListEl.children[i -1].remove();
+        }
+    }
+
+
     
 }
 
