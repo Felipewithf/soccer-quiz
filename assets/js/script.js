@@ -82,14 +82,16 @@ function renderTimer(){
         
 }
 
-function LocalStoreInitials(){
+function LocalStoreInitials(event){
+    
+    localStorage.setItem("initials", inputTextEl.value);
+    localStorage.setItem("score",timer);
 
 }
 
 function submitScore(){
 formEl.setAttribute("class","show");
 scoreMsgEl.textContent = `Your score is ${timer}`;
-
 submitBtn.addEventListener("click",LocalStoreInitials);
 
 }
