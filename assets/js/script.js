@@ -235,9 +235,6 @@ function clearScores(){
             highscoreListEl.children[i -1].remove();
         }
     }
-
-
-    
 }
 
 function backToQuiz(){
@@ -250,9 +247,15 @@ function backToQuiz(){
 
 function viewScores(){
 
+    var noScores = (localStorage.getItem("highScore") === null);
+
     if(highscoreListEl.children.length === 0){
+        if(noScores){
+            highscoreformEl.setAttribute("class","show");
+        }else{
         renderScore("highScore","bestPlayer");
-    }else{
+        }
+    }else {
     highscoreformEl.setAttribute("class","show");
     };
 }
