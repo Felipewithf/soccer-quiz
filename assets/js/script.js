@@ -11,11 +11,12 @@ var startBtn = document.querySelector("#startBtnHolder");
 var clearBtn = document.querySelector("#clear");
 var backBtn = document.querySelector("#back");
 var viewHighScoreBtn = document.querySelector("#viewHighScore");
-var headerEl = document.querySelector("header");
+var bodyEl = document.querySelector("body");
+var emojiEl = document.querySelector("#emoji");
 
 
 var index = 0; //questions
-var timer = 405; //countdown
+var timer = 45; //countdown
 
 // Array of object to store all the static text
 var questions = [{
@@ -138,11 +139,13 @@ function checkSolution(event){
 
     //check if the answer is correct
     if(userChoice === questions[index].answer){
+        correctUI();
         console.log("correct the answer is: " + questions[index].answer)
         timer = timer + 5;
         timerEl.textContent = timer;
     } else {
             console.log ("incorrect");
+            wrongUI();
             timer = timer - 5;
             timerEl.textContent = timer;
             if (timer <= 0){
@@ -161,6 +164,27 @@ function checkSolution(event){
         clearQuestion();
         renderedQuestion();
     }
+
+}
+
+function wrongUI() {
+
+    bodyEl.setAttribute("class","wrong");
+    emojiEl.textContent = `❌`;
+    var countdown = setTimeout(()=>{
+    bodyEl.removeAttribute("class","wrong");
+    emojiEl.textContent = ``;
+    },1200)  
+}
+
+function correctUI(){
+
+    bodyEl.setAttribute("class","correct");
+    emojiEl.textContent = `🟢`;
+    var countdown = setTimeout(()=>{
+    bodyEl.removeAttribute("class","correct");
+    emojiEl.textContent = ``;
+    },1200) 
 
 }
 

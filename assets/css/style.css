@@ -10,6 +10,14 @@
  box-sizing: content-box;
 }
 
+.wrong{
+    background-color: #FFA7A7;
+}
+
+.correct{
+    background-color: #C5E3B2;
+}
+
 body{
     background-color: var(--sandBackground);
 }
@@ -21,6 +29,11 @@ body{
 .show{
     display: inline-flex;
     flex-direction: column;
+}
+
+#emoji{
+font-size: 50px;
+margin: 0;
 }
 
 h1{
