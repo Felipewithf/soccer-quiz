@@ -1,11 +1,21 @@
+:root{
+    --blueHighscore: #B2D6ED;
+    --sandBackground: #F5F2EB;
+    --charcoalColor: #707070;
+}
+
 * {
- background-color: #F5F2EB;
  color: #707070;
  font-family: Arial, Helvetica, sans-serif;
+ box-sizing: content-box;
+}
+
+body{
+    background-color: var(--sandBackground);
 }
 
 .hide{
-    display: none;
+    display: none !important;
 }
 
 .show{
@@ -35,7 +45,8 @@ aside{
     width: 60vw;
     min-width: 500px ;
     height: 80vh;
-    background-color: aqua;
+    border: 1px solid var(--charcoalColor);
+    background-color: var(--blueHighscore);
 }
 
 main{
@@ -60,13 +71,13 @@ main{
     min-height: 50px;
 }
 
+
 #clearBtnHolder{
     display: flex;
     align-items: center;
     justify-content: center;
     height: 10%;
     min-height: 50px;
-    
 }
 
 #startBtnHolder{
@@ -87,9 +98,34 @@ main{
     align-content: center;
     width: 50vw;
     min-width: 400px;
-    background-color: aquamarine;
+    padding: 0;
+    margin: 0;
 
 }
+
+#viewHighScore, #timerHolder{
+width: 200px;
+}
+
+#timerHolder{
+    direction: rtl;
+}
+
+
+#highscoreList{
+    list-style-type: none;
+    padding: 0;
+}
+
+#highscoreList li{
+    margin: 10px 0;
+    padding: 10px 0;
+    background-color: rgba(255, 255, 255, 0.7);
+    display: flex;
+    justify-content: space-around;
+    font-size: 25px;
+}
+
 
 #questionList li{
     list-style-type: none;
@@ -97,13 +133,20 @@ main{
     line-height: 1.8rem;
 }
 
+#initialsForm{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+}
 
 /* design the li elements of the answers for each question */
 #questionList li ul li{
     background-color: white;
     padding: 20px 20px;
     margin: 10px 0;
-    border: 1px solid #707070;
+    border: 1px solid var(--charcoalColor);
     list-style-type: none;
     width: 80%;
     font-size: 25px;
@@ -113,7 +156,36 @@ main{
     background-color: #F4F4F4;
 }
 
+/* Change the start button */
+#start{
+    width: 300px;
+    height: 100px;
+    border: 1px solid var(--charcoalColor);
+    font-size: 45px;
+    background-color: #FFDDA7;
+    color: #988D7B;
+}
 
+#start:hover{
+    border: 1px solid var(--charcoalColor);
+    background-color: #EBCB97;
+    color: #988D7B;
+}
+
+#submit{
+    width: 100px;
+    height: 50px;
+    border: 1px solid var(--charcoalColor);
+    font-size: 25px;
+    background-color: var(--blueHighscore);
+    color: #3F647B;
+    margin-top: 30px;
+}
+
+#initials{
+    font-size: 25px;
+
+}
 footer{
     height: 10vh;
     display: flex;

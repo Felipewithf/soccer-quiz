@@ -11,6 +11,7 @@ var startBtn = document.querySelector("#startBtnHolder");
 var clearBtn = document.querySelector("#clear");
 var backBtn = document.querySelector("#back");
 var viewHighScoreBtn = document.querySelector("#viewHighScore");
+var headerEl = document.querySelector("header");
 
 
 var index = 0; //questions
@@ -18,7 +19,7 @@ var timer = 405; //countdown
 
 // Array of object to store all the static text
 var questions = [{
-        questionText: "how many players from one team are allow to play inside the field?",
+        questionText: "How many players from one team are allow to play inside the field?",
         a: "22",
         b: "18",
         c: "11",
@@ -176,8 +177,9 @@ function endOfQuiz(){
     clearQuestion();
     }
 
+    timerEl.textContent = "";
     formEl.setAttribute("class","show");
-    scoreMsgEl.textContent = `Your score is ${timer}`;
+    scoreMsgEl.textContent = `Your score is: ${timer}`;
     
 
 }
@@ -220,7 +222,13 @@ function renderScore(score,player){
     //render score and player depending of who calls the function
     var newScoreEl = document.createElement("li");
     highscoreListEl.append(newScoreEl);
-    newScoreEl.textContent = ` ${localStorage.getItem(player)}  ====  ${localStorage.getItem(score)}`;
+
+    var newScoreDiv = document.createElement("div");
+    var newPlayerDiv = document.createElement("div");
+    newScoreEl.append(newPlayerDiv,newScoreDiv);
+
+    newScoreDiv.textContent = localStorage.getItem(score);
+    newPlayerDiv.textContent = localStorage.getItem(player);
 
     highscoreformEl.setAttribute("class","show");
 
