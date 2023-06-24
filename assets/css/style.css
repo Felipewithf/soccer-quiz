@@ -1,3 +1,9 @@
+* {
+ background-color: #F5F2EB;
+ color: #707070;
+ font-family: Arial, Helvetica, sans-serif;
+}
+
 .hide{
     display: none;
 }
@@ -7,6 +13,10 @@
     flex-direction: column;
 }
 
+h1{
+    font-size: 45px;
+    margin-bottom: 0;
+}
 
 header{
     height: 10vh;
@@ -37,7 +47,6 @@ main{
 }
 
 .dynamic-box{
-    background-color: antiquewhite;
     height: fit-content;
     min-height: 60%;
     width: 50vw;
@@ -69,7 +78,6 @@ main{
 }
 
 .dynamic-box-highscores{
-    background-color: antiquewhite;
     height: fit-content;
     min-height: 80%;
     align-self: center;
@@ -82,6 +90,29 @@ main{
     background-color: aquamarine;
 
 }
+
+#questionList li{
+    list-style-type: none;
+    font-size: 1.2rem;
+    line-height: 1.8rem;
+}
+
+
+/* design the li elements of the answers for each question */
+#questionList li ul li{
+    background-color: white;
+    padding: 20px 20px;
+    margin: 10px 0;
+    border: 1px solid #707070;
+    list-style-type: none;
+    width: 80%;
+    font-size: 25px;
+}
+
+#questionList li ul li:hover{
+    background-color: #F4F4F4;
+}
+
 
 footer{
     height: 10vh;

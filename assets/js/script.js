@@ -14,7 +14,7 @@ var viewHighScoreBtn = document.querySelector("#viewHighScore");
 
 
 var index = 0; //questions
-var timer = 45; //countdown
+var timer = 405; //countdown
 
 // Array of object to store all the static text
 var questions = [{
@@ -121,10 +121,10 @@ function renderedQuestion() {
 
     //store the value of our array into the HTML elements
     newQuestionTitle.textContent = questions[index].questionText;
-    newOpt_a.textContent = `A: ${questions[index].a}`;
-    newOpt_b.textContent = `B: ${questions[index].b}`;
-    newOpt_c.textContent = `C: ${questions[index].c}`;
-    newOpt_d.textContent = `D: ${questions[index].d}`;
+    newOpt_a.textContent = `${questions[index].a}`;
+    newOpt_b.textContent = `${questions[index].b}`;
+    newOpt_c.textContent = `${questions[index].c}`;
+    newOpt_d.textContent = `${questions[index].d}`;
 
 }
 
@@ -138,11 +138,11 @@ function checkSolution(event){
     //check if the answer is correct
     if(userChoice === questions[index].answer){
         console.log("correct the answer is: " + questions[index].answer)
-        timer = timer + 10;
+        timer = timer + 5;
         timerEl.textContent = timer;
     } else {
             console.log ("incorrect");
-            timer = timer - 10;
+            timer = timer - 5;
             timerEl.textContent = timer;
             if (timer <= 0){
                 return timer;
