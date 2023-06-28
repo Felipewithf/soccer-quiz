@@ -15,7 +15,7 @@ Player can save the score with their initials, it can save the highscore even if
 Player can play as many times as they would like.
 
 ## Environments
-You can view the live portfolio using this link https://felipewithf.github.io/soccer-quiz/.
+You can view the live demo using this link https://felipewithf.github.io/soccer-quiz/.
 
 ## Screenshots
 
